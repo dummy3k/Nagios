@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#whoami
+#echo "$*"
+
+tmpfile=`echo $0 | md5sum`
+#tmpfile="`echo $@`"
+echo $tmpfile
+
+#/usr/local/nagios/libexec/check_nt  $@ | /usr/local/nagios/libexec/cacti_reader
+/usr/local/nagios/libexec/check_nt  $@ 
+#/usr/local/nagios/libexec/check_nt  $@
+echo $?
+

@@ -1,0 +1,25 @@
+#!/bin/sh
+LAST=""
+STAT=`cat /proc/stat | grep cpu$1 `
+if [ -f /tmp/cpu_last$1 ]; then
+	LAST=`cat /tmp/cpu_last$1 `
+
+fi
+awk -v b="$LAST" -v a="$STAT" '
+BEGIN {
+if ( b == "" ) {
+	print "0";
+	print a > "/tmp/cpu_last";
+	exit;
+}
+split(a,data_a," ");
+split(b,data_b," ");
+d_u = data_a[2] - data_b[2];
+d_n = data_a[3] - data_b[3];
+d_s = data_a[4] - data_b[4];
+d_i = data_a[5] - data_b[5];
+load = 100 - (d_i/(d_u + d_s + d_n + d_i)*100);
+print load;
+print a > "/tmp/cpu_last$1";
+exit;}'
+

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ssh nagios@$1 "~/bin/check_disk -c0% -p$2" | /usr/local/nagios/libexec/cacti_reader

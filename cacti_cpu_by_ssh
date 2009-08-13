@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ssh nagios@$1 "~/bin/cpu_load.sh $2"

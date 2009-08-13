@@ -1,0 +1,28 @@
+#!/usr/bin/awk -f 
+
+/.*/ {
+
+	retVal=""
+
+	if (match($0, /\|(.+)$/, what)) {
+		#print what[1]
+		#'z:\ Used Space'=287,32Gb;0,00;0,00;0.00;465,76
+		value = what[1];
+		if(match(value,/(.*)=(.*)/, what2)) {
+			
+			split(what2[2], values, /;/)
+			for (i=1;i in values;i++) {
+				 sub(/,/, ".", values[i])
+				 sub(/%/, "", values[i])
+				 sub(/[[:alpha:]]*$/, "", values[i])
+				 #print values[i]
+#			     if (values[i] != "")
+				 retVal=retVal i ":"  values[i] " "
+#			     else
+#				 retVal=retVal i ":0 "
+			}
+		}
+	}
+	print retVal
+
+}

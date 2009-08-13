@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ssh nagios@$1 "dpkg -l | wc -l" | /usr/local/nagios/libexec/cacti_reader

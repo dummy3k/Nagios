@@ -1,0 +1,10 @@
+#!/bin/bash
+state=`lynx $1 -dump |grep "Drive Status"`
+#echo "state:$state"
+if [[ "$state" =~ "OK" ]]
+then
+	echo "OKAY"
+else
+	echo "NOT okay"
+	exit 2
+fi
